@@ -113,7 +113,8 @@ def merge_and_build_features(daily, prices):
 
 @st.cache_resource
 def train_model(merged_json):
-    merged = pd.read_json(merged_json)
+    from io import StringIO
+    merged = pd.read_json(StringIO(merged_json))
     features = ["avg_sentiment", "sentiment_3d_avg", "post_count",
                 "post_count_3d", "avg_score", "avg_upvote_ratio",
                 "avg_comments", "daily_return"]
@@ -153,7 +154,7 @@ with st.spinner("Collecting live Reddit posts and stock prices..."):
     merged = merge_and_build_features(daily, prices)
 
 if len(merged) > 0:
-    rf, scaler, features = train_model(merged.to_json())
+    rf, scaler, features = train_model(merged.to_json(date_format='iso'))
 else:
     rf, scaler, features = None, None, []
 
