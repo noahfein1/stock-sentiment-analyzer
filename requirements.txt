@@ -1,0 +1,9 @@
+praw
+yfinance
+pandas
+vaderSentiment
+streamlit
+scikit-learn
+plotly
+numpy
+pyarrow
